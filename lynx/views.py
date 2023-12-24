@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.views.generic import View
 
 from .models import Article
