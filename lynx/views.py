@@ -1,4 +1,4 @@
-# from django.http import JsonResponse
+from django.http import JsonResponse,HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 # from django.utils.decorators import method_decorator
 from django.shortcuts import render,redirect
@@ -21,13 +21,21 @@ def home(request):
 #         # return JsonResponse({'status':'success'}, status=200)
 #         return render(request, 'lynx/delete.html')
 
+def cancel_delete(request):
+    return HttpResponse()
 
 class ArticleDeleteView(View):
     def get(self, request, pk):
-        article = Article.objects.get(pk=pk)
-        return render(request, 'lynx/delete.html',{'article':article})
-    
+        try:
+            article = Article.objects.get(pk=pk)
+            return render(request, 'lynx/delete.html',{'article':article})
+            return JsonResponse({'status':'success'}, status=200)
+        except Article.DoesNotExist:
+            return JsonResponse({'status':'error'}, status=400)
+        
     def post(self, request, pk):
         article = Article.objects.get(pk=pk)
         article.delete()
         return redirect('home')
+    
+

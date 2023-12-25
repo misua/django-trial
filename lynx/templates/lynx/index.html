@@ -12,24 +12,19 @@
     <h1>Lynx app</h1>
     <hr>
     {% for article in articles %}
-        <!-- <br>
-        <hr>
-       <p>{{ article.title }} <small><i>{{ article.created_at }}</i></small> <button hx-delete="/delete/{{ article.id }}" hx-target="#article-{{ article.id }}">Delete</button></p>
-       <hr>
-        <br>
-       {{ article.description }}
-        -->
-    
+  
     <div id="article-{{ article.id }}" class="card" style="width: 18rem;">
     <div class="card-body">
         <p class="card-title">{{ article.title }} <small><i>{{ article.created_at }}</i></small></p>
         <hr>
         <p class="card-text"> {{ article.description }}</p>
-        <button hx-delete="/delete/{{ article.id }}" hx-target="#article-{{ article.id }}">Delete</button>
+        <button hx-get="/delete/{{ article.id }}/" hx-swap="outerHTML" hx-target="#confirmation-modal">Delete</button>
+        <!-- <button hx-get="/delete/{{ article.id }}/" hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}' hx-target="#article-{{ article.id }}">Delete</button> -->
         <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
     </div>
     </div>
     <hr>
     {% endfor %}
+    <div id="confirmation-modal"></div>
 </body>
 </html>
