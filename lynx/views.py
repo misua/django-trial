@@ -38,4 +38,11 @@ class ArticleDeleteView(View):
         article.delete()
         return redirect('home')
     
+def singular_article(request, pk):
+    article = Article.objects.get(id=pk)
+    context = {
+        'article': article
+    }
+    return render(request, 'lynx/article.html', context=context)
+    
 
